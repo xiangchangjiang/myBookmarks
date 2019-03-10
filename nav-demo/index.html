@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>我的导航</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header></header>
+  <main >
+    <div class="wrapper" id="xx" ></div>
+  </main>
+  <footer></footer>
+  <script>
+    keys={
+      '0':{0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p',lenth:10},
+      '1':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',lenth:9},
+      '2':{0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',lenth:7},
+      'lenth':3
+    }
+    hash={
+      'q':'qq.com',
+      'w':'weibo.com',
+      'e':'ele.me',
+      'r':'renren.com',
+      't':'tianya.com',
+      'y':'youtube.com',
+      'u':'uc.com',
+      'i':'iqiyi.com',
+      'o':'opera.com',
+      'p':undefined,
+      'a':'acfun.tv',
+      's':'sohu.com',
+      'z':'zhihu.com',
+      'm':'www.mcdonald.com'
+    }
+    //hashInLocalStorage = JSON.parse(localStorage.getItem('newhash') || '')
+    //这样写当localStorage最初没有存东西时会报错，需要写成下面的形式。
+    
+    hashInLocalStorage = JSON.parse(localStorage.getItem('newhash') || 'null')
+    if(hashInLocalStorage){
+      hash=hashInLocalStorage
+    }
+
+
+    index=0
+    while (index<keys['lenth']){
+      div1=document.createElement('div')
+      xx.appendChild(div1)
+      
+      
+      raw=keys[index]
+      //console.log(raw)
+      index2=0
+      while (index2<raw['lenth']){       
+        z=document.createElement('kbd')
+        z.textContent=raw[index2]
+        div1.appendChild(z)
+
+        button1=document.createElement('button')
+        button1.textContent="编辑"
+        z.appendChild(button1)
+        button1.id=raw[index2]
+        button1.onclick=function(asdfghjkl){
+          console.log("我被点击了")
+          yyy=(asdfghjkl.target.id)
+          console.log(yyy)
+          newWeb=prompt('给我一个网址')
+          hash[yyy]=newWeb
+          //console.log(hash)
+          localStorage.setItem('newhash',JSON.stringify(hash))
+          console.log(hash)
+        }
+
+        index2=index2+1 
+      }
+      index=index+1
+    }
+    document.onkeypress=function(asdfghjkl){
+      console.log('你按了键盘')
+      key=asdfghjkl['key']
+      console.log(key)
+      console.log(hash[key])
+      // location.href="http://"+hash[key]//在本窗口地址栏输入新地址
+      window.open("http://"+hash[key] ,"_blank")//在新窗口打开
+      
+    }
+
+
+  </script>
+</body>
+</html>
